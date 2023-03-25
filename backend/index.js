@@ -30,6 +30,14 @@ app.get('/todos', async (req, res) => {
 //
 // Implement the following routes:
 // GET /todos/:id
+
+app.get('/todos/:id', async(req, res) => {
+
+    
+    console.log(await db.queryById("641eafdef09f6592b5c4bf1e"));
+    res.send("Successfull" + req.params.id);
+})
+
 // POST /todos
 // PUT /todos/:id
 // DELETE /todos/:id
@@ -42,3 +50,4 @@ initDB()
         })
     })
 
+   
