@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from 'mongodb';
+import { ConnectionPoolClearedEvent, MongoClient, ObjectId } from 'mongodb';
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/todos';
 const MONGO_DB = process.env.MONGO_DB || 'todos';
@@ -25,12 +25,15 @@ export default class DB {
     }
 
 
-    update(id, order) {
-        // TODO: Implement update
+    async update(id, order) {
+        const querry = {'_id': new ObjectId(id)};
+        let newValues = { $set: {title: order.title, due: order.due, status: order.status } }; 
+        await collection.updateOne(querry, newValues);
     }
 
-    delete(id) {
-        // TODO: Implement delete
+    async delete(id) {
+        const querry = {'_id': new ObjectId(id)};
+        await collection.deleteOne(querry);
     }
 
     insert(order) {

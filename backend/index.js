@@ -45,7 +45,18 @@ app.post('/todos', async(req, res) => {
 })
 
 // PUT /todos/:id
+app.put('/todos/:id', async(req, res) =>{
+    let reqjson = req.body;
+    await db.update(req.params.id, reqjson);
+    res.send("Successfull");
+})
+
 // DELETE /todos/:id
+app.delete('/todos/:id', async(req, res) => {
+    await db.delete(req.params.id);
+    res.send("Succcessfull");
+})
+
 
 
 initDB()
