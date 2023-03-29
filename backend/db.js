@@ -20,9 +20,7 @@ export default class DB {
 
     async queryById(id) {
         const querry = {'_id': new ObjectId(id)};
-        console.log(querry);
         let todo = await collection.findOne(querry);
-        console.log(todo);
         return todo;
     }
 
@@ -36,6 +34,8 @@ export default class DB {
     }
 
     insert(order) {
-        // TODO: Implement insert
+        order._id = new ObjectId();
+        collection.insertOne(order);
     }
+
 }

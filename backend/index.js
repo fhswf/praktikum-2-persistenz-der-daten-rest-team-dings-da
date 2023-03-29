@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 /** Zentrales Objekt für unsere Express-Applikation */
 const app = express();
-
+app.use(express.json());
 /** global instance of our database */
 let db = new DB();
 
@@ -32,13 +32,18 @@ app.get('/todos', async (req, res) => {
 // GET /todos/:id
 
 app.get('/todos/:id', async(req, res) => {
-
-    
-    console.log(await db.queryById("641eafdef09f6592b5c4bf1e"));
-    res.send("Successfull" + req.params.id);
+    let todo = await db.queryById(req.params.id);
+    res.send(todo);
 })
 
 // POST /todos
+
+app.post('/todos', async(req, res) => {
+    let reqjson = req.body;
+    db.insert(reqjson);
+    res.send("Successfull");
+})
+
 // PUT /todos/:id
 // DELETE /todos/:id
 
@@ -50,4 +55,3 @@ initDB()
         })
     })
 
-   
